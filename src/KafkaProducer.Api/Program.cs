@@ -1,3 +1,5 @@
+using DBridge.Messaging.KafkaProducer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -12,10 +14,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapPost("/produce/message", (int count, string message) =>
+app.MapPost("/produce/message", async (int count, string message) =>
 {
-    //TODO: Iterate loop until count and send message concatenated with count
-    //TODO: Topic name "demo-cliente-v1"
+    //TODO: Topic name "demo-client-v1"
+
+    for (int i = 0; i < count; i++)
+    {
+        using (var producer = new KafkaProducer<string, string>(
+                                "demo-client-v1",
+                                "localhost:9092"))
+        {
+            await producer.ProduceMessageAsync($"REGISTERING a cliente {i} of {count}", $"clientId-{i}"/*customerOrderEvent.PartitionKey()*/);
+
+            if (i % 5 == 0)
+            {
+                await producer.ProduceMessageAsync($"THE ADDRESS FROM cliente {i} WAS UPDATED", $"clientId-{i}"/*customerOrderEvent.PartitionKey()*/);
+            }
+
+        }
+    }
 
     return Results.Ok(message);
 });

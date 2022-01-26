@@ -9,5 +9,9 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DBridge.Messaging.KafkaProducer\DBridge.Messaging.KafkaProducer.csproj" />
+  </ItemGroup>
   
 </Project>
