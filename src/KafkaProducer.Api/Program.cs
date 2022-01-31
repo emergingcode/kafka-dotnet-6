@@ -21,14 +21,14 @@ app.MapPost("/produce/message", async (int count, string message) =>
     for (int i = 0; i < count; i++)
     {
         using (var producer = new KafkaProducer<string, string>(
-                                "demo-client-v1",
-                                "localhost:9092"))
+                                "demo-topico-1.0",
+                                "localhost:29092,localhost:39093"))
         {
-            await producer.ProduceMessageAsync($"REGISTERING a cliente {i} of {count}", $"clientId-{i}"/*customerOrderEvent.PartitionKey()*/);
+            await producer.ProduceMessageAsync($"REGISTERING message {message} for a cliente {i} of {count}", $"clientId-{i}");
 
             if (i % 5 == 0)
             {
-                await producer.ProduceMessageAsync($"THE ADDRESS FROM cliente {i} WAS UPDATED", $"clientId-{i}"/*customerOrderEvent.PartitionKey()*/);
+                await producer.ProduceMessageAsync($"THE ADDRESS FROM cliente {i} WAS UPDATED", $"clientId-{i}");
             }
 
         }

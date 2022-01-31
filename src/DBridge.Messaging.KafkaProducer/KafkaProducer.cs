@@ -15,7 +15,8 @@
 
             _producerConfig = new ProducerConfig
             {
-                BootstrapServers = server
+                BootstrapServers = server,
+                ApiVersionRequest = false
             };
         }
 

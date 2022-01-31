@@ -21,8 +21,8 @@
                         new KafkaConsumer<string, string>(
                             $"consumer-1",
                             "group-A",
-                            "localhost:9092",
-                            "demo-client-v1")
+                            "localhost:29092,localhost:39093",
+                            "demo-topico-1.0")
                         {
                         };
 
@@ -30,8 +30,8 @@
                         new KafkaConsumer<string, string>(
                             $"consumer-2",
                             "group-A",
-                            "localhost:9092",
-                            "demo-client-v1")
+                            "localhost:29092,localhost:39093",
+                            "demo-topico-1.0")
                         {
                         };
 
