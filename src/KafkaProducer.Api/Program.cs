@@ -7,7 +7,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -16,8 +15,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapPost("/produce/message", async (int count, string message) =>
 {
-    //TODO: Topic name "demo-client-v1"
-
     for (int i = 0; i < count; i++)
     {
         using (var producer = new KafkaProducer<string, string>(

@@ -1,23 +1,8 @@
 version: '3.4'
 
 services:
-  kafka-ui:
-    container_name: kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - 8080:8080
-    depends_on:
-      - zookeeper-1
-      - kafka-1
-      - kafka-2
-
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-1:29092,kafka-2:39092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper-1:22181
-
   zookeeper-1:
-    image: confluentinc/cp-zookeeper:latest
+    image: zookeeper:3.5.9
     container_name: zookeeper1
     hostname: zookeeper1
     environment:
@@ -27,7 +12,7 @@ services:
       - 22181:2181
 
   kafka-1:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:6.2.1
     container_name: broker1
     hostname: broker1
     depends_on:
@@ -44,7 +29,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   kafka-2:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:6.2.1
     container_name: broker2
     hostname: broker2
     depends_on:

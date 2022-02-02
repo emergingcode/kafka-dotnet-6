@@ -39,6 +39,7 @@
             tasks.Add(Task.Run(() => consumer2.Consume(cancellationToken)));
 
             Task t = Task.WhenAll(tasks);
+
             try
             {
                 t.Wait();
